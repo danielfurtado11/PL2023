@@ -22,7 +22,19 @@ def drawSexo(list):
     print("  -> % Doentes Sexo Feminino: " + str((list[1][0] / list[1][1]) * 100) + "%")
     print("----------------------------------------------------------\n\n")
     
+def drawIdade(dicionario):
+    print("\n\n--------------------------------------------------------------")
+    for key in dicionario:
+        print ("[" + str(key) + "," + str(key+4)+"] Idade -> " + str(dicionario[key][0]) + " de " + str(dicionario[key][1]) + " pessoas possuem doença. (" + str("{:.2f}".format((dicionario[key][0] / dicionario[key][1]) * 100)) + "%)")
+    print("--------------------------------------------------------------\n\n")
     
+def drawColesterol(tuplo):
+        print("\n\n--------------------------------------------------------------")
+        print("  Nº Erros na Medição do Colesterol: " + str(tuplo[0]))
+        dicionario = tuplo[1]
+        for key in dicionario:
+            print ("[" + str(key) + "," + str(key+9)+"] Colesterol -> " + str(dicionario[key][0]) + " de " + str(dicionario[key][1]) + " pessoas possuem doença.")
+        print("--------------------------------------------------------------\n\n")
 
 
 def doencaPorSexo(table):
@@ -115,9 +127,9 @@ while (1):
     if (c == "1"):
         drawSexo(sexo)
     if (c == "2"):
-        print(idade)
+        drawIdade(idade)
     if (c == "3"):
-        print(colesterol)
+        drawColesterol(colesterol)
     if (c == "0"):
         break
         
