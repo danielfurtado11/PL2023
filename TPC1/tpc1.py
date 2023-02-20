@@ -1,40 +1,51 @@
-import csv 
-
-
 
 
 def menu():
-    print("------------------------------- Menu -------------------------------\n")
-    print(" [1] - Consultar distribuição da doença por sexo.")
-    print(" [2] - Consultar distribuição da doença por escalões etários.")
-    print(" [3] - Consultar distribuição da doença por níveis de colesterol.")
-    print(" [0] - Sair.\n")
-    print("--------------------------------------------------------------------")
+    print("\n\n+-------------------------- Menu ---------------------------+")
+    print("|  {:<57}|".format(" [1] - Distribuição da doença por sexo."))
+    print("|  {:<57}|".format(" [2] - Distribuição da doença por escalões etários."))
+    print("|  {:<57}|".format(" [3] - Distribuição da doença por níveis de colesterol."))
+    print("|  {:<57}|".format(" [0] - Sair."))
+    print("+-----------------------------------------------------------+")
     
 
 def drawSexo(list):
-    print("\n\n----------------------------------------------------------")
-    print("  -> Total Sexo Masculino:  " + str(list[0][1]) )
-    print("  -> Doentes Sexo Masculino:  " + str(list[0][0]))
-    print("  -> Total Sexo Feminino:  " + str(list[1][1]))
-    print("  -> Doentes Sexo Feminino:  " + str(list[1][0]))
-    print("  -> % Doentes Sexo Masculino: " + str((list[0][0] / list[0][1]) * 100) + "%")
-    print("  -> % Doentes Sexo Feminino: " + str((list[1][0] / list[1][1]) * 100) + "%")
-    print("----------------------------------------------------------\n\n")
+    print("\n\n+-------------------------------------------+")
+    print("|              Doença por Sexo              |")
+    print("+----------+----------+----------+----------+")
+    print("|   Sexo   | Doentes  |   Total  |    (%)   |")
+    print("+----------+----------+----------+----------+")
+    print('|  {:<8}|  {:<8}|  {:<8}|  {:<8}|'.format("Homem",str(list[0][0]),str(list[0][1]), str("{:.2f}%".format((list[0][0] / list[0][1]) * 100))))
+    print("+----------+----------+----------+----------+")
+    print('|  {:<8}|  {:<8}|  {:<8}|  {:<8}|'.format("Mulher",str(list[1][0]),str(list[1][1]), str("{:.2f}%".format((list[1][0] / list[1][1]) * 100))))
+    print("+----------+----------+----------+----------+\n\n")
     
 def drawIdade(dicionario):
-    print("\n\n--------------------------------------------------------------")
+    
+    print("\n\n+--------------------------------------------------+")
+    print("|             Doença por Escalão Etário            |")
+    print("+-----------------+----------+----------+----------+")
+    print("|   Esc. Etário   | Doentes  |   Total  |    (%)   |")
+    print("+-----------------+----------+----------+----------+")
     for key in dicionario:
-        print ("[" + str(key) + "," + str(key+4)+"] Idade -> " + str(dicionario[key][0]) + " de " + str(dicionario[key][1]) + " pessoas possuem doença. (" + str("{:.2f}".format((dicionario[key][0] / dicionario[key][1]) * 100)) + "%)")
-    print("--------------------------------------------------------------\n\n")
+        print("|      {:<11}|  {:<8}|  {:8}|  {:<8}|".format(str(key)+"-"+str(key+4), str(dicionario[key][0]), str(dicionario[key][1]), str("{:.2f}%".format((dicionario[key][0] / dicionario[key][1]) * 100))))
+        print("+-----------------+----------+----------+----------+")
+    
+
     
 def drawColesterol(tuplo):
-        print("\n\n--------------------------------------------------------------")
-        print("  Nº Erros na Medição do Colesterol: " + str(tuplo[0]))
-        dicionario = tuplo[1]
-        for key in dicionario:
-            print ("[" + str(key) + "," + str(key+9)+"] Colesterol -> " + str(dicionario[key][0]) + " de " + str(dicionario[key][1]) + " pessoas possuem doença.")
-        print("--------------------------------------------------------------\n\n")
+    print("\n\n+-------------------------------------------+")
+    print("|       Doença por Nível de Colesterol      |")
+    print("+---------------------+----------+----------+")
+    print("|   Nvl. Colesterol   | Doentes  |   Total  |")
+    print("+---------------------+----------+----------+")
+    dicionario = tuplo[1]
+    for key in dicionario:
+        print("|        {:<13}|  {:<8}|  {:<8}|".format(str(key) + "-" + str(key+9), str(dicionario[key][0]), str(dicionario[key][1]), ))
+        print("+---------------------+----------+----------+")   
+    print("|        {:<13}|  {:<8}|  {:<8}|".format("**Erro**","-",str(tuplo[0]),"-"))
+    print("+---------------------+----------+----------+")   
+    
 
 
 def doencaPorSexo(table):
@@ -112,14 +123,13 @@ def doencaPorColesterol(table):
 
 table = []
 with open("myheart.csv", 'r') as file:
-  csvreader = list(csv.reader(file))
-  csvreader.pop(0)
-  for row in csvreader:
-    table.append(row)
+  for line in file.readlines():
+        line = line[:-1]
+        table.append(line.split(','))
+table.pop(0)
 sexo = doencaPorSexo(table)
 idade = doencaPorIdade(table)
 colesterol = doencaPorColesterol(table)
-
 
 while (1):
     menu()
@@ -134,8 +144,6 @@ while (1):
         break
         
         
-
-
 
 
 
