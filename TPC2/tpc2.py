@@ -1,9 +1,8 @@
-valor = 1
 c = 0
 i = 0
 
 print("Insira dígitos para realizar uma soma:")
-while valor == 1:
+while 1:
     
     line = input(">> ")
     numbers = ""
@@ -29,6 +28,3 @@ while valor == 1:
         if numbers != "":
             c += int(numbers)
             numbers = ""
-
-        
-    
